@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="js/knockout-3.4.2.js"></script>
+	<script async defer
+     src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyDHkv0L2NqXULK8Sckj4tTwSy0OsLX0pO8&callback=init" onerror="gMapsError()">
+   </script>
+	<script type="text/javascript" src="js/app.js"></script>
+</head>
+<body>
+	<!-- As a heading -->
+	<div id="wrapper">
+		<nav class="navbar navbar-inverse bg-inverse">
+		  <span style="font-size:30px;cursor:pointer" data-bind="click: sideMenuToggle">&#9776; Mapped</span>
+		</nav>
+		<div id="sideMenu" class="sideMenu">
+			<form>
+  				<input id="search" type="search" class="form-control" name="search" placeholder="Search text here" data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off" >
+			</form>
+			<ul data-bind="foreach: matchedLocations">
+				<li data-bind="text: name, click: loadInfoWindow"></li>
+			</ul>
+		</div>
+		<div id="map">
+
+		</div>
+
+	</div>
+</body>
