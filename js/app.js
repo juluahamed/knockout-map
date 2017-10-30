@@ -2,6 +2,9 @@
 
 //Google maps variables
 var map;
+
+// Following Google documentation for custom markers 
+//at https://developers.google.com/maps/documentation/javascript/custom-markers
 var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
 var icons = {
       restaurant: {

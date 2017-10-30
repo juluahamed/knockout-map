@@ -30,3 +30,4 @@ This app displays map of my locality with markers to locate cafes. List menu is 
 - http://learn.knockoutjs.com
 - https://developers.google.com/maps/documentation/javascript/tutorial
 - http://api.jquery.com/jQuery.ajax/
+- https://developers.google.com/maps/documentation/javascript/custom-markers
