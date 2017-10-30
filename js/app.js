@@ -1,5 +1,3 @@
-'use strict';
-
 //Google maps variables
 var map;
 
@@ -21,8 +19,6 @@ var icons = {
 //Foursquare API Client details
 var CLIENT_ID = 'LJSK504HP3KPR3HKSWIRRMEWLANBPD4NHBIXIMU0ZLT4O2OM';
 var CLIENT_SECRET = 'I5PTRMC2XW1QHLKWQWHICYC3WSQDGN0DEPCWU0GTXUTW2EMT';
-
-
 
 // Location Data
 var mapLocations = [
@@ -58,7 +54,7 @@ function Location(l_data) {
                         });
 
 	self.show = ko.computed(function(){
-		if (self.active() == true) {
+		if (self.active() === true) {
 			self.marker.setMap(map);
 		}
 		else {
@@ -81,7 +77,7 @@ function Location(l_data) {
 
 	self.loadInfoWindow = function(loc){
 		google.maps.event.trigger(self.marker, 'click');
-	}
+	};
 
 	self.infoWindowContentCreator = function() {
 		var content_string = "<p class='text-center'><strong>"+self.name+
@@ -92,7 +88,7 @@ function Location(l_data) {
 							 "<p class='small'> Info provided by <a href='https://foursquare.com'>Foursquare API</a></p>";
 		self.infoWindow.setContent(content_string);
 			
-	}
+	};
 
 	//Foursquare API : Search for location and get photos
 
@@ -105,24 +101,24 @@ function Location(l_data) {
 	    return $.ajax({
 	        dataType: "json",
 			url: fs_search_url});
-	};
+	}
 	ajaxSearch().done(function(result) {
 		var data = result.response.venues[0];
 	    self.id = data.id;
 		self.website = data.url;
-		self.checkin = data.stats['checkinsCount'];
-		self.address = data.location['address'];
+		self.checkin = data.stats.checkinsCount;
+		self.address = data.location.address;
 		
 		var fs_search_photos = "https://api.foursquare.com/v2/venues/" + self.id +
-								"/photos?client_id=" + CLIENT_ID + '&client_secret=' 
-								+ CLIENT_SECRET+ "&v=20171029";
+								"/photos?client_id=" + CLIENT_ID + '&client_secret=' +CLIENT_SECRET +
+								"&v=20171029";
 		
 		// From above recieved ID, retrieve pictures of the location
 		function ajaxPhoto() {
 		    return $.ajax({
 		        dataType: "json",
 				url: fs_search_photos});
-		};
+		}
 		ajaxPhoto().done(function(p_result){
 			self.picture = p_result.response.photos.items[0].prefix + "220x200"+
 							p_result.response.photos.items[0].suffix;
@@ -137,9 +133,7 @@ function Location(l_data) {
 	    self.checkin = 'Unable to reach Foursquare. Try again later';
 	    self.infoWindowContentCreator();
 	});
-
-
-};
+}
 
 
 // View Model function
@@ -150,7 +144,7 @@ function ListViewModel() {
 	// Side Menu binding
 	self.sideMenu = ko.observable(true);
 	self.sideMenuToggle = function(){
-		if (self.sideMenu() == false) {
+		if (self.sideMenu() === false) {
 	    	self.sideMenu(true);
 	    }
     	else {
@@ -158,13 +152,12 @@ function ListViewModel() {
     	}
 	};
 
-
 	self.displayLocations = ko.observableArray([]);
 	self.query = ko.observable('');
 	self.matchedLocations=ko.computed(function(){
 		var holderArray = ko.observableArray([]);
 		ko.utils.arrayFilter(self.displayLocations(), function(item) {
-			if (item.active() == true) {
+			if (item.active() === true) {
 				holderArray.push(item);
 			}
 		});
@@ -178,12 +171,11 @@ function ListViewModel() {
 		});
 
 
-	
 	//Store locations in observable array
 	for (var location in mapLocations ) {
 			bounds.extend({lat: mapLocations[location].lat, lng: mapLocations[location].lng});
 			self.displayLocations.push(new Location(mapLocations[location]));
-	};
+	}
 
 
 	//Function to set active property to true or false
@@ -199,7 +191,7 @@ function ListViewModel() {
 	// as true
 	self.search = function(value) {
 		self.renderAllLocations(false);
-		if (value == '') {
+		if (value === '') {
 			self.renderAllLocations(true);
 			return;
 		}
@@ -216,7 +208,7 @@ function ListViewModel() {
 	map.fitBounds(bounds);
 	self.query.subscribe(self.search);
 	self.renderAllLocations(true);
-};
+}
 
 function init() {
 		ko.applyBindings(new ListViewModel());
