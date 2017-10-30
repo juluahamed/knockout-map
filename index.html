@@ -18,11 +18,11 @@
 </head>
 <body>
 	<!-- As a heading -->
-	<div id="wrapper">
+	<div id="wrapper" data-bind="style: { marginLeft : sideMenu() == true ? '0' : '250px' }">
 		<nav class="navbar navbar-inverse bg-inverse">
 		  <span style="font-size:30px;cursor:pointer" data-bind="click: sideMenuToggle">&#9776; Mapped</span>
 		</nav>
-		<div id="sideMenu" class="sideMenu">
+		<div id="sideMenu" class="sideMenu" data-bind="style: {display : sideMenu() == true ? 'none' : 'block'}">
 			<form>
   				<input id="search" type="search" class="form-control" name="search" placeholder="Search text here" data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off" >
 			</form>
@@ -30,7 +30,7 @@
 				<li data-bind="text: name, click: loadInfoWindow"></li>
 			</ul>
 		</div>
-		<div id="map">
+		<div id="map" data-bind="style: {width : sideMenu() == true ? '100vw' : 'calc(100vw - 250px)'}">
 
 		</div>
 

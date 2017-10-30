@@ -145,17 +145,7 @@ function ListViewModel() {
 	var bounds = new google.maps.LatLngBounds();
 
 	// Side Menu binding
-	self.sideMenu = ko.observable(false);
-	self.sideMenuCompute = ko.computed(function(){
-		if (self.sideMenu() == false) {
-			document.getElementById("sideMenu").style.display = "block";
-	    	document.getElementById("wrapper").style.marginLeft = "250px";
-	    }
-    	else {
-		 	document.getElementById("sideMenu").style.display = "none";
-		 	document.getElementById("wrapper").style.marginLeft = "0";
-    	}
-	});
+	self.sideMenu = ko.observable(true);
 	self.sideMenuToggle = function(){
 		if (self.sideMenu() == false) {
 	    	self.sideMenu(true);
