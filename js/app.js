@@ -55,14 +55,10 @@ function Location(l_data) {
                         });
 
 	self.show = ko.computed(function(){
-		console.log("Activating computed show:");
 		if (self.active() == true) {
-
-			console.log(self.active());
 			self.marker.setMap(map);
 		}
 		else {
-			console.log(self.active());
 			self.marker.setMap(null);
 		}
 	});
@@ -102,8 +98,6 @@ function Location(l_data) {
 			url: fs_search_url});
 	};
 	ajaxSearch().done(function(result) {
-		console.log("We are successful");
-		console.log(result.response.venues[0].location['address']);
 		var data = result.response.venues[0];
 	    self.id = data.id;
 		self.website = data.url;
@@ -142,6 +136,7 @@ function Location(l_data) {
 // View Model function
 function ListViewModel() {
 	var self = this;
+	var bounds = new google.maps.LatLngBounds();
 
 	// Side Menu binding
 	self.sideMenu = ko.observable(false);
@@ -168,14 +163,12 @@ function ListViewModel() {
 	self.displayLocations = ko.observableArray([]);
 	self.query = ko.observable('');
 	self.matchedLocations=ko.computed(function(){
-		console.log("Computing List Filter");
 		var holderArray = ko.observableArray([]);
 		ko.utils.arrayFilter(self.displayLocations(), function(item) {
 			if (item.active() == true) {
 				holderArray.push(item);
 			}
 		});
-		console.log(holderArray());
 		return holderArray();
 	});
 
@@ -185,9 +178,11 @@ function ListViewModel() {
 			zoom: 14
 		});
 
+
 	
 	//Store locations in observable array
 	for (var location in mapLocations ) {
+			bounds.extend({lat: mapLocations[location].lat, lng: mapLocations[location].lng});
 			self.displayLocations.push(new Location(mapLocations[location]));
 	};
 
@@ -219,7 +214,7 @@ function ListViewModel() {
 				
 		});
 	};
-
+	map.fitBounds(bounds);
 	self.query.subscribe(self.search);
 	self.renderAllLocations(true);
 };

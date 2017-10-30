@@ -59,7 +59,7 @@ input {
     margin-left: 50px;
 }
 #map {
-    height: 100vh;
+    height: calc(100vh - 62px);
     padding: 0;
     margin: 0;
 }
