@@ -68,6 +68,11 @@ function Location(l_data) {
             });
 
 	self.marker.addListener('click', function(){
+		// Make Marker animate on bounce for 1 cycle
+		self.marker.setAnimation(google.maps.Animation.BOUNCE);
+		setTimeout(function () {
+		    self.marker.setAnimation(null);
+		}, 700);
 		self.infoWindow.open(map, self.marker);
 	});
 
