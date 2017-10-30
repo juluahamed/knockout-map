@@ -85,7 +85,8 @@ function Location(l_data) {
 							"</strong></p><p>Website : <a href="+ self.website +">"+
 							 self.website+ "</a></p><p>Address : "+ self.address + 
 							 "</p><p>Total Checkin :"+ self.checkin+"</p>"+
-							 "<img class='displayImage' src="+self.picture+">";
+							 "<img class='displayImage' src="+self.picture+">" + 
+							 "<p class='small'> Info provided by <a href='https://foursquare.com'>Foursquare API</a></p>";
 		self.infoWindow.setContent(content_string);
 			
 	}
